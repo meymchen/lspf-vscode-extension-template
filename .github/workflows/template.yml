@@ -11,6 +11,8 @@ jobs:
   generate:
     if: github.repository == 'meymchen/lspf-vscode-extension-template'
     runs-on: ubuntu-latest
+    env:
+      CARGO_GENERATE_VERSION: "0.24.0"
     permissions:
       contents: read
     steps:
@@ -23,7 +25,15 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 24
-      - run: cargo install cargo-generate --locked
+      - name: Cache cargo-generate
+        id: cache-cargo-generate
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cargo/bin/cargo-generate
+          key: cargo-generate-${{ runner.os }}-${{ runner.arch }}-${{ env.CARGO_GENERATE_VERSION }}
+      - name: Install cargo-generate
+        if: steps.cache-cargo-generate.outputs.cache-hit != 'true'
+        run: cargo install cargo-generate --version "$CARGO_GENERATE_VERSION" --locked
       - name: Create generation destination
         run: mkdir -p ../generated
       - name: Generate a project without prompts
