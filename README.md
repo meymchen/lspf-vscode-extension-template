@@ -22,6 +22,29 @@ diagnostic and provides hover and completion responses.
 The checked-in `Cargo.toml` and `extension/package.json` are runnable defaults.
 Their `.liquid` counterparts are used only by `cargo-generate`.
 
+## After using this template
+
+GitHub copies the runnable `lspf-hello` defaults without rendering the
+`.liquid` files. Customize the copied repository before publishing it:
+
+- Change `package.name` in `Cargo.toml` and `name` in
+  `extension/package.json` to the same value. The extension uses that name to
+  locate the server binary.
+- Update the extension display name, description, publisher, language ID,
+  aliases, and file extensions in `extension/package.json`.
+- Regenerate the lockfiles after editing the manifests:
+
+  ```sh
+  cargo check
+  npm --prefix extension install --package-lock-only
+  ```
+
+- Replace the example names and `.hello` references in the READMEs and tests.
+- Add repository and support links, then review the version and Marketplace
+  metadata in `extension/package.json`.
+- Run `cargo test` and `npm --prefix extension test` before starting extension
+  development with F5.
+
 ## Generate a named project
 
 Install `cargo-generate`, then create a project:
