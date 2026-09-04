@@ -50,6 +50,17 @@ jobs:
         working-directory: ../generated/generated-language/extension
       - run: npm test
         working-directory: ../generated/generated-language/extension
+      - name: Package generated Linux extension
+        working-directory: ../generated/generated-language/extension
+        run: >-
+          npm run package --
+          --target linux-x64
+          --out generated-language-linux-x64.vsix
+      - name: Verify packaged language server
+        working-directory: ../generated/generated-language/extension
+        run: |
+          test -s generated-language-linux-x64.vsix
+          test "$(unzip -p generated-language-linux-x64.vsix extension/server/generated-language | wc -c)" -gt 0
       - name: Ensure template-only files were removed
         working-directory: ../generated/generated-language
         run: |
