@@ -1,0 +1,48 @@
+name: Template smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        with:
+          toolchain: 1.98.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: 24
+      - run: cargo install cargo-generate --locked
+      - name: Generate a project without prompts
+        run: |
+          cargo generate --path . --destination ../generated \
+            --name generated-language --silent \
+            --define display_name="Generated Language" \
+            --define publisher="template-ci" \
+            --define language_id="generated-language" \
+            --define file_extension=".generated"
+      - run: cargo test
+        working-directory: ../generated/generated-language
+      - run: npm ci
+        working-directory: ../generated/generated-language/extension
+      - run: npm test
+        working-directory: ../generated/generated-language/extension
+      - name: Ensure template-only files were removed
+        working-directory: ../generated/generated-language
+        run: |
+          test ! -e cargo-generate.toml
+          test ! -e Cargo.toml.liquid
+          test ! -e README.md.liquid
+          test ! -e extension/package.json.liquid
+          test ! -e extension/README.md.liquid
+          test ! -e .github/workflows/template.yml

@@ -1,0 +1,23 @@
+[template]
+cargo_generate_version = ">=0.23.0"
+ignore = [
+  "cargo-generate.toml",
+  ".github/workflows/template.yml",
+  "target",
+  "extension/dist",
+  "extension/node_modules",
+  "extension/out",
+  "extension/server",
+  "extension/*.vsix",
+]
+exclude = [
+  ".github/workflows/**",
+  "Cargo.lock",
+  "extension/package-lock.json",
+]
+
+[placeholders]
+display_name = { type = "string", prompt = "Human-readable language name", default = "My Language" }
+publisher = { type = "string", prompt = "VS Code Marketplace publisher", default = "your-publisher", regex = "^[A-Za-z0-9][A-Za-z0-9-]*$" }
+language_id = { type = "string", prompt = "VS Code language identifier", default = "my-language", regex = "^[a-z][a-z0-9._-]*$" }
+file_extension = { type = "string", prompt = "Primary file extension, including the dot", default = ".my", regex = "^\\.[A-Za-z0-9][A-Za-z0-9._-]*$" }

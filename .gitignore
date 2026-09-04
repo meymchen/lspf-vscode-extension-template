@@ -1,0 +1,7 @@
+/target/
+/extension/dist/
+/extension/node_modules/
+/extension/out/
+/extension/server/
+/extension/*.vsix
+.DS_Store

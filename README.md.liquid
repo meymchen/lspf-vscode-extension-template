@@ -1,0 +1,45 @@
+# {{ display_name }}
+
+Rust language server and VS Code extension for {{ display_name }}, built with
+[lspf](https://github.com/meymchen/lspf).
+
+## Development
+
+Install dependencies and run all tests:
+
+```sh
+cargo test
+npm --prefix extension ci
+npm --prefix extension test
+```
+
+Open the repository in VS Code, select **Run language extension**, and press F5.
+In the Extension Development Host, create a `{{ file_extension }}` file. The
+example server publishes a diagnostic and provides hover and completion
+responses.
+
+## Customize the server
+
+Start in `src/main.rs`. `State` is where application-owned indexes and parsed
+data belong. Open documents, the workspace snapshot, and the client connection
+are available through `ServerContext`.
+
+Replace the example diagnostic, hover, and completion handlers with the parser
+and language logic for `{{ language_id }}`.
+
+## Package the extension
+
+The package step builds a release server, bundles the TypeScript client, and
+creates a platform-specific VSIX:
+
+```sh
+npm --prefix extension run package -- --target linux-x64
+```
+
+Use the matching VS Code target for every platform you support. Before
+publishing, add repository and support links to `extension/package.json` and
+review the version and Marketplace metadata for `{{ publisher }}.{{ project-name }}`.
+
+## License
+
+Licensed under either Apache-2.0 or MIT at your option.

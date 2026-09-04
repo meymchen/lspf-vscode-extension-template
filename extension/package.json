@@ -1,0 +1,51 @@
+{
+  "name": "lspf-hello",
+  "displayName": "LSPF Hello",
+  "description": "A minimal VS Code language extension backed by an lspf server.",
+  "version": "0.1.0",
+  "publisher": "lspf-template",
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "lspf-hello",
+        "aliases": [
+          "LSPF Hello"
+        ],
+        "extensions": [
+          ".hello"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "test": "npm run compile && node --test \"out/test/**/*.test.js\"",
+    "bundle": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "prepare:server": "node scripts/prepareServer.mjs",
+    "vscode:prepublish": "npm run bundle && npm run prepare:server",
+    "package": "vsce package --no-dependencies --allow-missing-repository"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.6.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0"
+  }
+}

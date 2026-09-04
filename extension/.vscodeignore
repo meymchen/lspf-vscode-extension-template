@@ -1,0 +1,10 @@
+*.liquid
+*.vsix
+dist/*.map
+esbuild.mjs
+node_modules/**
+out/**
+scripts/**
+src/**
+test/**
+tsconfig.json
