@@ -9,6 +9,7 @@ permissions: {}
 
 jobs:
   generate:
+    if: github.repository == 'meymchen/lspf-vscode-extension-template'
     runs-on: ubuntu-latest
     permissions:
       contents: read
