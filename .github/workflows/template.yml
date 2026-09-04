@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: 24
       - run: cargo install cargo-generate --locked
+      - name: Create generation destination
+        run: mkdir -p ../generated
       - name: Generate a project without prompts
         run: |
           cargo generate --path . --destination ../generated \
