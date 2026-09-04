@@ -1,12 +1,14 @@
 # lspf VS Code extension template
 
 A working Rust language server and VS Code extension built with
-[lspf](https://github.com/meymchen/lspf). The repository works as-is and also
-supports project generation with `cargo-generate`.
+[lspf](https://github.com/meymchen/lspf). GitHub's **Use this template** button
+copies the runnable `lspf-hello` example for you to rename. `cargo-generate`
+asks for project metadata and renders a customized project instead.
 
-## Use it directly
+## Create from the GitHub template
 
-Create a repository from this GitHub template or clone it, then run:
+Click **Use this template** on GitHub to create a repository from the runnable
+example. A regular clone also works for trying it locally. Then run:
 
 ```sh
 cargo test
@@ -45,9 +47,10 @@ GitHub copies the runnable `lspf-hello` defaults without rendering the
 - Run `cargo test` and `npm --prefix extension test` before starting extension
   development with F5.
 
-## Generate a named project
+## Generate a customized project
 
-Install `cargo-generate`, then create a project:
+Use `cargo-generate` when you want the names and Marketplace fields filled in
+before the first build:
 
 ```sh
 cargo install cargo-generate --locked
