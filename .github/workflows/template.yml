@@ -44,6 +44,10 @@ jobs:
             --define publisher="template-ci" \
             --define language_id="generated-language" \
             --define file_extension=".generated"
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: ../generated/generated-language -> target
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - run: cargo test
         working-directory: ../generated/generated-language
       - run: npm ci
